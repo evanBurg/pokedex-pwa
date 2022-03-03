@@ -129,3 +129,16 @@ const setUpPage = (evt) => {
 };
 
 document.addEventListener('init', setUpPage);
+// Padd the history with an extra page so that we don't exit right away
+window.addEventListener('load', () => window.history.pushState({ }, ''));
+// When the browser goes back a page, if our navigator has more than one page we pop the page and prevent the back event by adding a new page
+// Otherwise we trigger a second back event, because we padded the history we need to go back twice to exit the app.
+window.addEventListener('popstate', () => {
+  const { pages } = elements.navigator;
+  if (pages && pages.length > 1) {
+    popPage();
+    window.history.pushState({ }, '');
+  } else {
+    window.history.back();
+  }
+});
