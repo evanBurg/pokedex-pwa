@@ -136,7 +136,7 @@ window.addEventListener('load', () => window.history.pushState({ }, ''));
 window.addEventListener('popstate', () => {
   const { pages } = elements.navigator;
   if (pages && pages.length > 1) {
-    popPage();
+    state.navigator.popPage();
     window.history.pushState({ }, '');
   } else {
     window.history.back();
